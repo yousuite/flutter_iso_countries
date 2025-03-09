@@ -6,7 +6,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -17,8 +16,8 @@ class IsoCountriesPlugin : MethodCallHandler, FlutterPlugin {
 
     companion object {
         @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "com.anoop4real.iso_countries")
+        fun registerWithMessenger(messenger: BinaryMessenger) {
+            val channel = MethodChannel(messenger, "com.anoop4real.iso_countries")
             channel.setMethodCallHandler(IsoCountriesPlugin())
         }
     }
@@ -53,7 +52,7 @@ class IsoCountriesPlugin : MethodCallHandler, FlutterPlugin {
     }
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        registerWith(binding.binaryMessenger)
+        registerWithMessenger(binding.binaryMessenger)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
